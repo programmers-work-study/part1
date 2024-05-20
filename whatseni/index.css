@@ -1,0 +1,173 @@
+
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+#App {
+  margin: 1.5em auto;
+  max-width: 1200px;
+  column-gap: 1.5em;
+}
+
+.SearchResult {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
+  grid-gap: 10px;
+}
+
+.SearchResult img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.SearchResult .item {
+  background-color: #eee;
+  display: inline-block;
+  margin: 0 0 1em;
+  width: 100%;
+}
+
+.SearchInput {
+  width: 100%;
+  font-size: 40px;
+  padding: 10px 15px;
+}
+
+.ImageInfo {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ImageInfo .title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ImageInfo .title,
+.ImageInfo .description {
+  padding: 5px;
+}
+
+.ImageInfo .content-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.ImageInfo .content-wrapper img {
+  width: 100%;
+}
+label {
+  display: block;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+#darkmode-btn {
+  display:none;
+}
+#darkmode-btn+label {
+  background-size: cover;
+  background-image: url('./img/lightmode.png'); 
+}
+#darkmode-btn:checked+label {
+  background-size: cover;
+  background-image: url('./img/darkmode.png'); 
+}
+
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000;
+    color: white;
+  }
+}
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
+body[data-theme="dark"] {
+  background-color: #000;
+  color: white;
+}
+
+body[data-theme="light"] {
+  background-color: white;
+  color: #000;
+}
+
+@keyframes rotate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-text-opacity {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.loading-container, .loading {
+  height: 100px;
+  position: relative;
+  width: 100px;
+  border-radius: 100%;
+  transition: all 0.5s ease-in-out;
+}
+
+.loading-container {
+  margin: 40px auto;
+}
+
+.loading {
+  border: 2px solid transparent;
+  border-color: transparent #fff transparent #fff;
+  animation: rotate-loading 1.5s linear 0s infinite normal;
+  transform-origin: 50% 50%;
+}
+
+#loading-text {
+  animation: loading-text-opacity 2s linear 0s infinite normal;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 45px;
+  opacity: 0;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 0;
+  width: 100px;
+}
