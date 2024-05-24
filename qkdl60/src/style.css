@@ -8,7 +8,7 @@
 html {
   box-sizing: border-box;
 }
-/*TODO 다크 모드 적용 시키기   */
+
 body {
   --background-color: #ffffff;
   --text-color: #000000;
@@ -21,6 +21,8 @@ body.dark-mode {
 
 body * {
   font-family: Goyang;
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 *,
