@@ -1,11 +1,16 @@
-console.log("app is running!");
+import ThemeToggleButton from "./ThemeToggleButton.js";
+import SearchInput from "./SearchInput.js";
+import SearchResult from "./SearchResult.js";
+import ImageInfo from "./ImageInfo.js";
 
-class App {
+export default class App {
   $target = null;
   data = [];
 
   constructor($target) {
     this.$target = $target;
+
+    this.themeToggleButton = new ThemeToggleButton({$target});
 
     this.searchInput = new SearchInput({
       $target,
