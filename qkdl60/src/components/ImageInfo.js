@@ -10,6 +10,16 @@ export default class ImageInfo {
 
     this.data = data;
 
+    $imageInfo.addEventListener("click", (event) => {
+      if (event.target && (event.target.classList.contains("ImageInfo") || event.target.classList.contains("close"))) {
+        this.$imageInfo.style.display = "none";
+      }
+    });
+    document.addEventListener("keyup", (event) => {
+      if (event.key !== "Escape") return;
+      if (this.$imageInfo.style.display === "none") return;
+      this.$imageInfo.style.display = "none";
+    });
     this.render();
   }
 
@@ -26,7 +36,7 @@ export default class ImageInfo {
         <div class="content-wrapper">
           <div class="title">
             <span>${name}</span>
-            <div class="close">x</div>
+            <button class="close">x</ㅠ>
           </div>
           <img src="${url}" alt="${name}"/>        
           <div class="description">
