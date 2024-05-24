@@ -2,7 +2,7 @@ import ThemeToggleButton from "./ThemeToggleButton.js";
 import SearchInput from "./SearchInput.js";
 import SearchResult from "./SearchResult.js";
 import ImageInfo from "./ImageInfo.js";
-
+import {api} from "../utils/api.js";
 export default class App {
   $target = null;
   data = [];

@@ -7,17 +7,16 @@
 
 html {
   box-sizing: border-box;
-  
 }
 /*TODO 다크 모드 적용 시키기   */
-body{
-  --background-color:#FFFFFF;
+body {
+  --background-color: #ffffff;
   --text-color: #000000;
 }
 
-body.dark-mode{
-  --text-color:#FFFFFF;
-  --background-color:  #000000;
+body.dark-mode {
+  --text-color: #ffffff;
+  --background-color: #000000;
 }
 
 body * {
@@ -96,6 +95,25 @@ body * {
   width: 100%;
 }
 
+@media screen and (max-width: 992px) {
+  .SearchResult {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+  }
+}
+@media screen and (max-width: 768px) {
+  .SearchResult {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+  .content-wrapper {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .SearchResult {
+    grid-template-columns: repeat(1, minmax(250px, 1fr));
+  }
+}
+
 /* dark mode 처리
 @media (prefers-color-scheme: dark) {
   body {
@@ -103,4 +121,4 @@ body * {
     color: white;
   }
 }
-*?
+*/
