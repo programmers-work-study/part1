@@ -14,8 +14,10 @@ export default class SearchInput {
         onSearch(e.target.value);
       }
     });
-
-    console.log("SearchInput created.", this);
+    $searchInput.addEventListener("focus", (event) => {
+      if (event.target.value) event.target.value = "";
+    });
+    this.$searchInput.focus();
   }
   render() {}
 }
