@@ -1,24 +1,20 @@
 export default class ImageInfo {
-  $imageInfo = null;
+  $target = null;
   data = null;
 
   constructor({$target, data}) {
-    const $imageInfo = document.createElement("div");
-    $imageInfo.className = "ImageInfo";
-    this.$imageInfo = $imageInfo;
-    $target.appendChild($imageInfo);
-
+    this.$target = $target;
     this.data = data;
-
-    $imageInfo.addEventListener("click", (event) => {
-      if (event.target && (event.target.classList.contains("ImageInfo") || event.target.classList.contains("close"))) {
-        this.$imageInfo.style.display = "none";
+    this.$target.addEventListener("click", (event) => {
+      if (event.target && (event.target.classList.contains("dimmed") || event.target.classList.contains("close"))) {
+        console.log("hi");
+        this.setState(null);
       }
     });
     document.addEventListener("keyup", (event) => {
       if (event.key !== "Escape") return;
-      if (this.$imageInfo.style.display === "none") return;
-      this.$imageInfo.style.display = "none";
+      if (!this.data) return;
+      this.setState(null);
     });
     this.render();
   }
@@ -29,24 +25,29 @@ export default class ImageInfo {
   }
 
   render() {
-    if (this.data.visible) {
-      const {name, url, temperament, origin} = this.data.image;
-
-      this.$imageInfo.innerHTML = `
-        <div class="content-wrapper">
-          <div class="title">
-            <span>${name}</span>
-            <button class="close">x</ㅠ>
-          </div>
-          <img src="${url}" alt="${name}"/>        
-          <div class="description">
-            <div>성격: ${temperament}</div>
-            <div>태생: ${origin}</div>
-          </div>
-        </div>`;
-      this.$imageInfo.style.display = "block";
-    } else {
-      this.$imageInfo.style.display = "none";
+    if (!this.data || !this.data.visible) {
+      this.$target.innerHTML = "";
+      return;
+    }
+    const {name, url, temperament, origin} = this.data.image;
+    this.$target.innerHTML = `
+    <div class="dimmed">
+    <div class="content-wrapper">
+    <div class="title">
+    <span>${name}</span>
+    <button class="close">x</ㅠ>
+    </div>
+    <img src="${url}" alt="${name}"/>
+    <div class="description">
+    <div>성격: ${temperament}</div>
+    <div>태생: ${origin}</div>
+    </div>
+    </div>
+    </div>
+    `;
+    if (!this.$target.classList.contains("hidden")) {
+      this.$target.classList.remove("hidden");
+      this.$target.classList.add("visible");
     }
   }
 }

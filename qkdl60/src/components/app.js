@@ -18,7 +18,6 @@ export default class App {
         api.fetchCats(keyword).then(({data}) => this.setState(data));
       },
     });
-
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
@@ -30,8 +29,11 @@ export default class App {
       },
     });
 
+    const $imageInfo = document.createElement("div");
+    $imageInfo.classList.add("ImageInfo");
+    this.$target.appendChild($imageInfo);
     this.imageInfo = new ImageInfo({
-      $target,
+      $target: $imageInfo,
       data: {
         visible: false,
         image: null,
