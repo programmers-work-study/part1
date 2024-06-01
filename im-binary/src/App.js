@@ -3,7 +3,7 @@ console.log("app is running!");
 class App {
   $target = null;
   data = [];
-
+  
   constructor($target) {
     this.$target = $target;
 
@@ -13,19 +13,24 @@ class App {
 
     this.searchInput = new SearchInput({
       $target,
-      onSearch: keyword => {
-        api.fetchCats(keyword).then(({ data }) => this.setState(data));
+      onSearch: async keyword => {
+          const { data } = await api.fetchCats(keyword);
+          this.setState(data);
+      },
+      onRandom: async () => {
+          const { data } = await api.fetchRandomCats();
+          this.setState(data);
       }
     });
 
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
-      onClick: async (image) => {
-        this.imageInfo.setState({
-          visible: true,
-          image: await api.fetchCatDetail(image.id),
-        });
+      onClick: async image => {
+          this.imageInfo.setState({
+            visible: true,
+            image: await api.fetchCatDetail(image.id),
+          });
       }
     });
 
