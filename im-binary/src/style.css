@@ -95,7 +95,17 @@ body * {
   .SearchResult {
     grid-template-columns: repeat(2, minmax(250px, 1fr));
   }
+
+  .ImageInfo .content-wrapper {
+    width: 100%;
+  }
+
+  .ImageInfo .content-wrapper img {
+    max-height: 500px;
+    object-fit: cover;
+  }
 }
+
 
 @media (max-width: 576px) {
   .SearchResult {
