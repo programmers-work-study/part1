@@ -22,13 +22,13 @@ class ImageInfo {
     if (this.data.visible) {
       const { data: catImageData } = this.data.image;
       const { name, url, temperament, origin } = catImageData;
-
+      
       this.$imageInfo.innerHTML = `
         <div class="content-wrapper">
-          <div class="title">
+          <h1 class="title">
             <span>${name}</span>
-            <div class="close">x</div>
-          </div>
+            <button class="close">x</button>
+          </h1>
           <img src="${url}" alt="${name}"/>        
           <div class="description">
             <div>성격: ${temperament}</div>

@@ -19,6 +19,13 @@ body * {
   box-sizing: inherit;
 }
 
+
+/* 기본 스타일 초기화 */
+ul {
+  margin: 0;
+  padding: 0;
+}
+
 #App {
   margin: 1.5em auto;
   max-width: 1200px;
@@ -105,7 +112,6 @@ body * {
     object-fit: cover;
   }
 }
-
 
 @media (max-width: 576px) {
   .SearchResult {
