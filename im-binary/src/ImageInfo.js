@@ -24,8 +24,7 @@ class ImageInfo {
 
   render() {
     if (this.data.visible) {
-      const { data: catImageData } = this.data.image;
-      const { name, url, temperament, origin } = catImageData;
+      const { name, url, temperament, origin } = this.data.image;
       
       this.$imageInfo.innerHTML = `
         <div class="content-wrapper">
