@@ -1,29 +1,26 @@
 class ThemeToggle {
     constructor({ $target }) {
-      const $ThemToggle = document.createElement("input");
-      this.$ThemToggle = $ThemToggle;
-      $ThemToggle.type = "checkbox";
-      $ThemToggle.className = "ThemeToggle";
-      $target.appendChild($ThemToggle);
+        const $ThemToggle = document.createElement("input");
+        this.$ThemToggle = $ThemToggle;
+        $ThemToggle.type = "checkbox";
+        $ThemToggle.className = "ThemeToggle";
+        $target.appendChild($ThemToggle);
+        
+        const $body = document.body;
 
-      // 처음에 시스템 값 따라가도록 설정 
-      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
+        // 처음에 시스템 값 따라가도록 설정 
+        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
         if(isDarkMode) {
             $ThemToggle.checked = true;
+            $body.dataset.theme = "dark";
         }
-
-      $ThemToggle.addEventListener("click",() => {
-          const body = document.body.style;
-          const contentWrapper = document.querySelector(".content-wrapper");
-          console.log(contentWrapper,"contentWrapper");
+        
+        $ThemToggle.addEventListener("click",() => {
             if($ThemToggle.checked === true) {
-                body.background = "#000";
-                body.color = "#fff";
-                contentWrapper.background = "#000";
+                $body.dataset.theme = "dark";
             } else{
-                body.background = "#fff";
-                body.color = "#000";
+                $body.dataset.theme = "light";
             }
         });
     }
