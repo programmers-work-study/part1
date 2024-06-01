@@ -4,6 +4,7 @@ import SearchResult from "./SearchResult.js";
 import ImageInfo from "./ImageInfo.js";
 import Banner from "./Banner.js";
 import {api} from "../utils/api.js";
+import RandomButton from "./RandomButton.js";
 
 export default class App {
   $target = null;
@@ -11,15 +12,25 @@ export default class App {
 
   constructor($target) {
     this.$target = $target;
+    const $header = document.createElement("header");
+    $header.classList.add("header");
+    this.$target.appendChild($header);
 
-    this.themeToggleButton = new ThemeToggleButton({$target});
+    this.themeToggleButton = new ThemeToggleButton({$target: $header});
     this.searchInput = new SearchInput({
-      $target,
+      $target: $header,
       onSearch: (keyword) => {
         api.fetchCats(keyword).then(({data}) => this.setState(data));
       },
     });
-    const $banner = document.createElement("div");
+    const $randomButton = new RandomButton({
+      $target: $header,
+      onClick: () => {
+        api.fetchRandom50().then(({data}) => this.setState(data));
+      },
+    });
+
+    const $banner = document.createElement("section");
     $banner.classList.add("banner");
     this.$target.appendChild($banner);
     this.banner = new Banner({$target: $banner});
