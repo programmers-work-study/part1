@@ -14,12 +14,26 @@ class App {
     this.searchInput = new SearchInput({
       $target,
       onSearch: async keyword => {
+        try{
+          this.loading.setLoading(true);
           const { data } = await api.fetchCats(keyword);
           this.setState(data);
+        } catch(e){
+          console.error(e);
+        } finally{
+          this.loading.setLoading(false);
+        }
       },
       onRandom: async () => {
+        try {
+          this.loading.setLoading(true);
           const { data } = await api.fetchRandomCats();
           this.setState(data);
+        } catch(e){
+          console.error(e);
+        } finally{
+          this.loading.setLoading(false);
+        }
       }
     });
 
@@ -27,10 +41,18 @@ class App {
       $target,
       initialData: this.data,
       onClick: async image => {
+        try{
+          this.loading.setLoading(true);
+          const { data } = await api.fetchCatDetail(image.id);
           this.imageInfo.setState({
             visible: true,
-            image: await api.fetchCatDetail(image.id),
+            image: data
           });
+        } catch(e){
+          console.error(e);
+        } finally{
+          this.loading.setLoading(false);
+        }
       }
     });
 
@@ -39,6 +61,13 @@ class App {
       data: {
         visible: false,
         image: null
+      }
+    });
+
+    this.loading = new Loading({
+      $target,
+      data: {
+        visible: false,
       }
     });
   }
