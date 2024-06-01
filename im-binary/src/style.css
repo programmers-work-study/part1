@@ -98,6 +98,23 @@ ul {
   width: 100%;
 }
 
+.Loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 30px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.Loading .loading-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
 @media (max-width: 992px) {
   .SearchResult {
     grid-template-columns: repeat(3, minmax(250px, 1fr));
