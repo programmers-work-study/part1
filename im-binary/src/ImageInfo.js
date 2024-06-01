@@ -18,6 +18,10 @@ class ImageInfo {
     this.render();
   }
 
+  close() {
+    this.$imageInfo.style.display = "none";
+  }
+
   render() {
     if (this.data.visible) {
       const { data: catImageData } = this.data.image;
@@ -36,6 +40,27 @@ class ImageInfo {
           </div>
         </div>`;
       this.$imageInfo.style.display = "block";
+
+      const contentWrapper = document.querySelector(".content-wrapper");
+      const closeButton = document.querySelector(".close");
+
+      this.$imageInfo.addEventListener("click", () => {
+        this.close();
+      });
+
+      contentWrapper.addEventListener("click", (e) => {
+        e.stopPropagation();
+      })
+  
+      closeButton.addEventListener("click", () => {
+        this.close();
+      });
+  
+      document.addEventListener("keyup", (e) => {
+        if (e.keyCode === 27) {
+          this.close();
+        }
+      });
     } else {
       this.$imageInfo.style.display = "none";
     }
