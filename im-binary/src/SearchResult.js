@@ -17,6 +17,9 @@ class SearchResult {
   setState(nextData) {
     this.data = nextData;
     this.render();
+    if(this.data.length === 0) {
+      this.$searchResult.innerHTML = `<p>지금 찾은 고양이는 없는 고양이 입니다.<p>`
+    }
   }
 
   render() {
