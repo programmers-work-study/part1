@@ -62,6 +62,7 @@ body * {
   font-size: 40px;
   padding: 10px 15px;
 }
+
 .dimmed {
   position: fixed;
   left: 0;
@@ -69,9 +70,15 @@ body * {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity 1s ease-in-out, visibility 0s linear 1s;
 }
 .ImageInfo {
+  transition: opacity 1s ease-in-out;
+}
+.ImageInfo.hidden {
+  opacity: 0;
+}
+.ImageInfo.visible {
+  opacity: 1;
 }
 
 .ImageInfo .title {
@@ -90,13 +97,50 @@ body * {
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--background-color);
-  /* background-color: #fff; */
   border: 1px solid #eee;
   border-radius: 5px;
 }
 
 .ImageInfo .content-wrapper img {
   width: 100%;
+}
+
+.banner {
+  position: relative;
+}
+.carousel__button {
+  position: absolute;
+  font-size: 50px;
+  z-index: 1;
+}
+.carousel__button.left {
+  left: 0;
+}
+.carousel__button.right {
+  right: 0;
+}
+.carousel__current {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.carousel__container {
+  display: flex;
+  gap: 8px;
+  transform: translate(0);
+  transition: all 0.5s;
+
+  .carousel__item {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+  }
 }
 
 @media screen and (max-width: 992px) {
@@ -117,12 +161,3 @@ body * {
     grid-template-columns: repeat(1, minmax(250px, 1fr));
   }
 }
-
-/* dark mode 처리
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #000;
-    color: white;
-  }
-}
-*/
