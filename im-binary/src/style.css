@@ -32,6 +32,14 @@ ul {
   column-gap: 1.5em;
 }
 
+.searchContainer {
+  display: flex;
+}
+
+.searchContainer button {
+  flex-basis: 150px;
+}
+
 .SearchResult {
   margin-top: 10px;
   display: grid;
