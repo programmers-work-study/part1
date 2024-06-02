@@ -9,7 +9,7 @@ export default class ImageInfo {
     $target.appendChild(this.$imageInfo);
 
     this.render();
-    this.bindEvents();
+    this.addEvents();
   }
 
   setState(nextData) {
@@ -32,7 +32,7 @@ export default class ImageInfo {
     }
   }
 
-  bindEvents() {
+  addEvents() {
     this.$imageInfo.addEventListener("click", (e) => {
       if (e.target.className === "close" || e.target === this.$imageInfo) {
         this.onClose();

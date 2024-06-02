@@ -67,7 +67,5 @@ export default class App {
   }
 
   render() {
-    // App 컴포넌트의 초기 렌더링
-    // 추가적으로 필요한 요소들을 초기화 할 수 있습니다.
   }
 }

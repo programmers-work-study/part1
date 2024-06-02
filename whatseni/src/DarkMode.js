@@ -9,7 +9,6 @@ export default class DarkMode {
     this.$toggle = document.createElement("input");
     this.$toggle.type = "checkbox";
     this.$toggle.checked = this.isDarkMode;
-    // this.$toggle.className = "DarkModeToggle";
     this.$toggle.id = "DarkModeToggle";
 
     this.$label = document.createElement("label");

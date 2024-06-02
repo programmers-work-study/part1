@@ -4,7 +4,7 @@ export default class SearchInput {
     this.onSearch = onSearch;
 
     this.$input = document.createElement("input");
-    this.$input.placeholder = "Search for cats...";
+    this.$input.placeholder = "고양이 종류를 검색하세요...";
     this.$input.type = "text";
     this.$input.className = "SearchInput";
     $target.appendChild(this.$input);

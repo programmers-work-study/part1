@@ -15,7 +15,10 @@ html {
   max-width: 1200px;
   column-gap: 1.5em;
 }
-
+.NoResultContainer {
+  text-align: center;
+  font-size: 30px;
+}
 .SearchResult {
   margin-top: 10px;
   display: grid;
