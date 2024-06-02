@@ -36,34 +36,47 @@ body * {
   max-width: 1200px;
   column-gap: 1.5em;
 }
-
-.SearchResult {
+header {
+  display: flex;
+  width: 100%;
+  .searchInput {
+    flex-grow: 1;
+  }
+}
+.searchResult {
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-gap: 10px;
+  position: relative;
 }
-
-.SearchResult img {
+.searchResult img {
   width: 200px;
   height: 200px;
   object-fit: cover;
 }
-
-.SearchResult .item {
+.searchResult .item {
   background-color: #eee;
   display: inline-block;
   margin: 0 0 1em;
   width: 200px;
   height: 200px;
 }
-
-.SearchInput {
+.empty-result {
+  position: absolute;
+  font-size: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.searchInput {
   width: 100%;
   font-size: 40px;
   padding: 10px 15px;
 }
-
+.searchHistory {
+  width: 100%;
+  padding: 16px;
+}
 .dimmed {
   position: fixed;
   left: 0;
@@ -72,27 +85,27 @@ body * {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.ImageInfo {
+.imageInfo {
   transition: opacity 1s ease-in-out;
 }
-.ImageInfo.hidden {
+.imageInfo.hidden {
   opacity: 0;
 }
-.ImageInfo.visible {
+.imageInfo.visible {
   opacity: 1;
 }
 
-.ImageInfo .title {
+.imageInfo .title {
   display: flex;
   justify-content: space-between;
 }
 
-.ImageInfo .title,
-.ImageInfo .description {
+.imageInfo .title,
+.imageInfo .description {
   padding: 5px;
 }
 
-.ImageInfo .content-wrapper {
+.imageInfo .content-wrapper {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -102,7 +115,7 @@ body * {
   border-radius: 5px;
 }
 
-.ImageInfo .content-wrapper img {
+.imageInfo .content-wrapper img {
   width: 100%;
 }
 
@@ -124,11 +137,12 @@ body * {
   width: 200px;
   height: 200px;
   overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .carousel__container {
   display: flex;
-  gap: 8px;
   transform: translate(0);
   transition: all 0.5s;
 
@@ -145,12 +159,12 @@ body * {
 }
 
 @media screen and (max-width: 992px) {
-  .SearchResult {
+  .searchResult {
     grid-template-columns: repeat(3, minmax(250px, 1fr));
   }
 }
 @media screen and (max-width: 768px) {
-  .SearchResult {
+  .searchResult {
     grid-template-columns: repeat(2, minmax(250px, 1fr));
   }
   .content-wrapper {
@@ -158,7 +172,7 @@ body * {
   }
 }
 @media screen and (max-width: 576px) {
-  .SearchResult {
+  .searchResult {
     grid-template-columns: repeat(1, minmax(250px, 1fr));
   }
 }
