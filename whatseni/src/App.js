@@ -1,27 +1,31 @@
-import DarkModeButton from "./DarkMode.js";
 import ImageInfo from "./ImageInfo.js";
 import SearchInput from "./SearchInput.js";
 import SearchResult from "./SearchResult.js";
+import DarkMode from "./DarkMode.js";
+import Loading from "./Loading.js";
 import { api } from "./api.js";
 
 export default class App {
-  $target = null;
-  data = [];
-
   constructor($target) {
-    this.$target = $target;
+    this.$appMainTarget = $target;
+    this.showCatdataList = []; // 표시될 고양이 데이터
 
     this.searchInput = new SearchInput({
       $target,
-      onSearch: keyword => {
-        api.fetchCats(keyword).then(({ data }) => this.setState(data));
+      onSearch: (keyword) => {
+        this.showLoading();
+        api.fetchCats(keyword).then(({ data }) => {
+          console.log(data);
+          this.setState(data);
+          this.hideLoading();
+        });
       }
     });
 
     this.searchResult = new SearchResult({
       $target,
-      initialData: this.data,
-      onClick: image => {
+      initialData: [],
+      onClick: (image) => {
         this.imageInfo.setState({
           visible: true,
           image
@@ -34,21 +38,36 @@ export default class App {
       data: {
         visible: false,
         image: null
+      },
+      onClose: () => {
+        this.imageInfo.setState({
+          visible: false,
+          image: null
+        });
       }
     });
 
-    this.darkModeToggle = new DarkModeButton({
-      $target,
-      onToggle: event => {
-        event.preventDefault();
-        console.log(event)
-        event.target.checked ? this.darkModeToggle.setState(true) : this.darkModeToggle.setState(false);
-      }
-    })
+    this.darkMode = new DarkMode({ $target });
+    this.loading = new Loading({ $target });
+
+    this.render();
   }
 
   setState(nextData) {
-    this.data = nextData;
+    this.showCatdataList = nextData;
     this.searchResult.setState(nextData);
+  }
+
+  showLoading() {
+    this.loading.show();
+  }
+
+  hideLoading() {
+    this.loading.hide();
+  }
+
+  render() {
+    // App 컴포넌트의 초기 렌더링
+    // 추가적으로 필요한 요소들을 초기화 할 수 있습니다.
   }
 }

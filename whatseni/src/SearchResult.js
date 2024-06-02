@@ -1,8 +1,4 @@
 export default class SearchResult {
-  $searchResult = null;
-  data = null;
-  onClick = null;
-
   constructor({ $target, initialData, onClick }) {
     this.$searchResult = document.createElement("div");
     this.$searchResult.className = "SearchResult";
@@ -20,14 +16,14 @@ export default class SearchResult {
   }
 
   render() {
-    if (this.data) {
+    if (this.data.length > 0) {
       this.$searchResult.innerHTML = this.data
         .map(
-          cat => `
-          <div class="item">
-            <img src=${cat.url} alt=${cat.name} />
-          </div>
-        `
+          (cat) => `
+            <div class="item">
+              <img src="${cat.url}" alt="${cat.name}" />
+            </div>
+          `
         )
         .join("");
 
@@ -37,7 +33,7 @@ export default class SearchResult {
         });
       });
     } else {
-      $target.appendChild(new NoResultData())
+      this.$searchResult.innerHTML = "<p>No results found.</p>";
     }
   }
 }
