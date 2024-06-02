@@ -8,25 +8,24 @@ import RandomButton from "./RandomButton.js";
 import {STORE_KEY_SEARCH_RESULT} from "../constants/constants.js";
 import {storage} from "../utils/Storage.js";
 import SearchHistory from "./SearchHistory.js";
-//TODO 정리 필요, 컴포넌트 의존성 및 상태 변경 관리 필요
+
 export default class App {
   $target = null;
   data = [];
 
   constructor($target) {
     this.$target = $target;
+
     const $header = document.createElement("header");
     $header.classList.add("header");
     this.$target.appendChild($header);
-
-    this.themeToggleButton = new ThemeToggleButton({$target: $header});
+    const themeToggleButton = new ThemeToggleButton({$target: $header});
     this.searchInput = new SearchInput({
       $target: $header,
       onSearch: (keyword) => {
         api.fetchCats(keyword).then(({data}) => {
           this.setState(data);
         });
-        //TODO 분리 필요
         this.searchResult.keyword = keyword;
         this.searchResult.page = 1;
         searchHistory.setState(keyword);
@@ -41,9 +40,9 @@ export default class App {
       },
     });
 
-    const $searchHistory = document.createElement("div");
-    $searchHistory.classList.add("SearchHistory");
-    $header.appendChild($searchHistory);
+    const $searchHistory = document.createElement("section");
+    $searchHistory.classList.add("searchHistory");
+    this.$target.appendChild($searchHistory);
     const searchHistory = new SearchHistory({
       $target: $searchHistory,
       onClick: (keyword) => {
@@ -58,10 +57,13 @@ export default class App {
     this.$target.appendChild($banner);
     this.banner = new Banner({$target: $banner});
 
+    const $searchResult = document.createElement("section");
+    $searchResult.classList.add("searchResult");
+    this.$target.appendChild($searchResult);
     const initialData = storage.get(STORE_KEY_SEARCH_RESULT);
     this.data = initialData ? initialData : [];
     this.searchResult = new SearchResult({
-      $target,
+      $target: $searchResult,
       initialData: this.data,
       onClick: (image) => {
         this.imageInfo.setState({
@@ -75,7 +77,7 @@ export default class App {
     });
 
     const $imageInfo = document.createElement("div");
-    $imageInfo.classList.add("ImageInfo", "hidden");
+    $imageInfo.classList.add("imageInfo", "hidden");
     this.$target.appendChild($imageInfo);
     this.imageInfo = new ImageInfo({
       $target: $imageInfo,

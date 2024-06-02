@@ -22,7 +22,8 @@ export default class SearchHistory {
   }
 
   template() {
-    return `<div class="history-container" >
+    return `<div class="historyContainer" >
+    <span>최근 검색어 : </span>
     ${this.data.map((item) => `<span class="history-item" data-keyword=${item}>${item}</span>`).join(" / ")}
     </div> `;
   }

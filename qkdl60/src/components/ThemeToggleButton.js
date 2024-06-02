@@ -1,5 +1,4 @@
-const THEME_DARK_MODE_CLASS_NAME = "dark-mode";
-
+import {THEME_DARK_MODE_CLASS_NAME} from "../constants/constants.js";
 export default class ThemeToggleButton {
   data = {isDarkMode: false};
   constructor({$target}) {

@@ -1,20 +1,18 @@
 import {storage} from "../utils/Storage.js";
 import {STORE_KEY_SEARCH_RESULT} from "../constants/constants.js";
 import {api} from "../utils/api.js";
+
 export default class SearchResult {
-  $searchResult = null;
+  $target;
   data = null;
   onClick = null;
   keyword = null;
   page = 1;
 
   constructor({$target, initialData, onClick}) {
-    this.$searchResult = document.createElement("div");
-    this.$searchResult.className = "SearchResult";
-    $target.appendChild(this.$searchResult);
+    this.$target = $target;
     this.data = initialData;
     this.onClick = onClick;
-    console.log(this.data);
     this.render();
   }
 
@@ -25,12 +23,12 @@ export default class SearchResult {
   }
   render() {
     if (!this.data || this.data.length === 0) {
-      this.$searchResult.innerHTML = `<div class="empty-result">
+      this.$target.innerHTML = `<div class="empty-result">
       검색 결과가 없네요😿😾🙀
       </div>`;
       return;
     }
-    const currentItems = this.$searchResult.querySelectorAll(".item");
+    const currentItems = this.$target.querySelectorAll(".item");
     const currentItemIds = [...currentItems].map((item) => item.id);
 
     const newData = this.data.filter((item) => !currentItemIds.includes(item.id));
@@ -38,7 +36,7 @@ export default class SearchResult {
     const $empty = document.querySelector(".empty-result");
     if ($empty) $empty.remove();
     if (newData.length === this.data.length) {
-      this.$searchResult.innerHTML =
+      this.$target.innerHTML =
         this.data
           .map((item) => {
             const name = item.name.split(" ").join("");
@@ -60,8 +58,8 @@ export default class SearchResult {
         $img.title = item.name.split(" ").join("");
         $img.alt = item.name.split(" ").join("");
         $item.appendChild($img);
-        if ($pageEnd) this.$searchResult.insertBefore($item, $pageEnd);
-        else this.$searchResult.appendChild($item);
+        if ($pageEnd) this.$target.insertBefore($item, $pageEnd);
+        else this.$target.appendChild($item);
       });
     }
 
@@ -69,13 +67,13 @@ export default class SearchResult {
       const lastBox = document.createElement("div");
       lastBox.classList.add("page-end");
       lastBox.innerText = "끝";
-      this.$searchResult.appendChild(lastBox);
+      this.$target.appendChild(lastBox);
     }
     this.mounted();
   }
 
   mounted() {
-    this.$searchResult.addEventListener("click", (event) => {
+    this.$target.addEventListener("click", (event) => {
       const $item = event.target.closest(".item");
       if (!$item) return;
       const targetId = $item.id;

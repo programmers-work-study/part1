@@ -1,4 +1,4 @@
-const API_END_POINT = "https://q9d70f82kd.execute-api.ap-northeast-2.amazonaws.com/dev";
+import {API_END_POINT} from "../constants/constants.js";
 
 export const api = {
   fetchCats: (keyword, page = 1) => {
