@@ -1,3 +1,5 @@
+import {storage} from "../utils/Storage.js";
+import {STORE_KEY_SEARCH_RESULT} from "../constants/constants.js";
 export default class SearchResult {
   $searchResult = null;
   data = null;
@@ -7,7 +9,6 @@ export default class SearchResult {
     this.$searchResult = document.createElement("div");
     this.$searchResult.className = "SearchResult";
     $target.appendChild(this.$searchResult);
-
     this.data = initialData;
     this.onClick = onClick;
     this.render();
@@ -15,9 +16,10 @@ export default class SearchResult {
 
   setState(nextData) {
     this.data = nextData;
+    storage.set(STORE_KEY_SEARCH_RESULT, this.data);
     this.render();
   }
-  //TODO
+
   render() {
     this.$searchResult.innerHTML = this.data
       .map(

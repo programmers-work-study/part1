@@ -5,7 +5,9 @@ import ImageInfo from "./ImageInfo.js";
 import Banner from "./Banner.js";
 import {api} from "../utils/api.js";
 import RandomButton from "./RandomButton.js";
-
+import {STORE_KEY_SEARCH_RESULT} from "../constants/constants.js";
+import {storage} from "../utils/Storage.js";
+//TODO 정리 필요
 export default class App {
   $target = null;
   data = [];
@@ -35,6 +37,8 @@ export default class App {
     this.$target.appendChild($banner);
     this.banner = new Banner({$target: $banner});
 
+    const initialData = storage.get(STORE_KEY_SEARCH_RESULT);
+    this.data = initialData ? initialData : [];
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
