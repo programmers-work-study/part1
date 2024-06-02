@@ -7,7 +7,8 @@ import {api} from "../utils/api.js";
 import RandomButton from "./RandomButton.js";
 import {STORE_KEY_SEARCH_RESULT} from "../constants/constants.js";
 import {storage} from "../utils/Storage.js";
-//TODO 정리 필요
+import SearchHistory from "./SearchHistory.js";
+//TODO 정리 필요, 컴포넌트 의존성 및 상태 변경 관리 필요
 export default class App {
   $target = null;
   data = [];
@@ -22,13 +23,33 @@ export default class App {
     this.searchInput = new SearchInput({
       $target: $header,
       onSearch: (keyword) => {
-        api.fetchCats(keyword).then(({data}) => this.setState(data));
+        api.fetchCats(keyword).then(({data}) => {
+          this.setState(data);
+        });
+        //TODO 분리 필요
+        this.searchResult.keyword = keyword;
+        this.searchResult.page = 1;
+        searchHistory.setState(keyword);
       },
     });
-    const $randomButton = new RandomButton({
+    const randomButton = new RandomButton({
       $target: $header,
       onClick: () => {
         api.fetchRandom50().then(({data}) => this.setState(data));
+        this.searchResult.page = 1;
+        this.searchResult.keyword = null;
+      },
+    });
+
+    const $searchHistory = document.createElement("div");
+    $searchHistory.classList.add("SearchHistory");
+    $header.appendChild($searchHistory);
+    const searchHistory = new SearchHistory({
+      $target: $searchHistory,
+      onClick: (keyword) => {
+        api.fetchCats(keyword).then(({data}) => {
+          this.setState(data);
+        });
       },
     });
 
@@ -46,6 +67,9 @@ export default class App {
         this.imageInfo.setState({
           visible: true,
           image,
+        });
+        api.fetchCat(image.id).then(({data}) => {
+          this.imageInfo.setState({visible: true, image: data});
         });
       },
     });
