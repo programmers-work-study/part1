@@ -14,6 +14,14 @@ export default class SearchResult {
     this.data = initialData;
     this.onClick = onClick;
     this.render();
+
+    this.$target.addEventListener("click", (event) => {
+      const $item = event.target.closest(".item");
+      if (!$item) return;
+      const targetId = $item.id;
+      const cat = this.data.filter((cat) => cat.id === targetId)[0];
+      this.onClick(cat);
+    });
   }
 
   setState(nextData) {
@@ -30,12 +38,12 @@ export default class SearchResult {
     }
     const currentItems = this.$target.querySelectorAll(".item");
     const currentItemIds = [...currentItems].map((item) => item.id);
-
     const newData = this.data.filter((item) => !currentItemIds.includes(item.id));
     const $pageEnd = document.querySelector(".page-end");
     const $empty = document.querySelector(".empty-result");
     if ($empty) $empty.remove();
-    if (newData.length === this.data.length) {
+    const isInit = this.page === 1;
+    if (isInit) {
       this.$target.innerHTML =
         this.data
           .map((item) => {
@@ -73,14 +81,6 @@ export default class SearchResult {
   }
 
   mounted() {
-    this.$target.addEventListener("click", (event) => {
-      const $item = event.target.closest(".item");
-      if (!$item) return;
-      const targetId = $item.id;
-      const cat = this.data.filter((cat) => cat.id === targetId)[0];
-      this.onClick(cat);
-    });
-
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.target.classList.contains("lazy")) {

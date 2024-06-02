@@ -3,7 +3,6 @@ export default class ImageInfo {
   data = null;
 
   constructor({$target, data}) {
-    //TODO 고양이 정보 api 요청하기
     this.$target = $target;
     this.data = data;
     this.$target.addEventListener("click", (event) => {
@@ -23,7 +22,6 @@ export default class ImageInfo {
     this.data = nextData;
     this.render();
   }
-  //TODO visible 상태로 컨트롤,fetch시 로딩으로  로딩 완료후 업데이트
   render() {
     if (!this.data || !this.data.visible) {
       if (this.$target.classList.contains("visible")) this.$target.classList.replace("visible", "hidden");
