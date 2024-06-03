@@ -25,7 +25,10 @@ export default class ImageInfo {
   render() {
     if (!this.data || !this.data.visible) {
       if (this.$target.classList.contains("visible")) this.$target.classList.replace("visible", "hidden");
-      this.$target.innerHTML = "";
+      // this.$target.innerHTML = "";
+      setTimeout(() => {
+        this.$target.innerHTML = "";
+      }, 1000);
       return;
     }
     const {name, url, temperament, origin} = this.data.image;
